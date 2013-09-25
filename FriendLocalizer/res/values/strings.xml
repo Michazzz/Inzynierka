@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FriendLocalizer</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="zaloguj">ZALOGUJ</string>
+    <string name="email">Adres e-mail</string>
+    <string name="haslo">Hasło</string>
+    <string name="linkDoRejestracji">Nie posiadasz konta? Zarejestruj się!</string>
+    <string name="zapamietajMnie">Zapamiętaj mnie</string>
+    <string name="title_activity_logged_inctivity">LoggedInctivity</string>
+    <string name="title_activity_main">FriendLocalizer</string>
+    <string name="title_activity_register">Rejestracja</string>
+    <string name="zarejestruj">ZAREJESTRUJ</string>
+    <string name="linkDoLogowania">Mam już konto. Zaloguj mnie !</string>
+    <string name="name">Imię</string>
+    <string name="lastname">Nazwisko</string>
+    <string name="title_activity_logged_main_screen">FriendLocalizer</string>
+    <string name="gpsStatus">Brak sygnału GPS!</string>
+    <string name="description">image</string>
+    <string name="title_activity_search_friends">SearchFriendsActivity</string>
+    <string name="wyszukaj">Wyszukaj znajomych</string>
+
+</resources>

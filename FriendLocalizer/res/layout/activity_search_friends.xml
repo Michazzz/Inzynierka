@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#3b3b3b" >
+    
+   <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dip" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:text="@string/wyszukaj"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+        
+        <TextView
+            android:id="@+id/tvSearchName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="@string/name" />
+        
+        <EditText
+            android:id="@+id/searchName"
+            android:inputType="textPersonName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white" />
+        
+        <TextView
+            android:id="@+id/tvSearchLastname"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="10dp"
+            android:text="@string/lastname" />
+        
+        <EditText
+            android:id="@+id/searchLastname"
+            android:inputType="textPersonName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white" />
+        
+
+        <CheckBox
+            android:id="@+id/isEmailSearchActivated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="50dp"
+            android:textSize="22sp"
+            android:button="@drawable/box"
+            android:text="lub za pomocą e-mail:" />
+            
+        <TextView
+            android:id="@+id/tvSearchEmail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/white"
+            android:text="@string/email" />
+
+        <EditText
+            android:id="@+id/searchEmail"
+            android:inputType="textEmailAddress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white" />
+
+        <Button
+            android:id="@+id/searchBtn"
+            android:layout_marginTop="50dp"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:text="Szukaj" />
+                
+     </LinearLayout>
+     
+
+    </ScrollView>
