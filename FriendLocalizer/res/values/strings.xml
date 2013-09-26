@@ -21,5 +21,7 @@
     <string name="description">image</string>
     <string name="title_activity_search_friends">SearchFriendsActivity</string>
     <string name="wyszukaj">Wyszukaj znajomych</string>
+    <string name="title_activity_search_friends_list_view">SearchFriendsListView</string>
+    <string name="title_activity_search_friends_list">SearchFriendsList</string>
 
 </resources>

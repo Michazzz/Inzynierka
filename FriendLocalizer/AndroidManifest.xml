@@ -41,6 +41,14 @@
             android:name="pl.edu.zut.mwojtalewicz.friendlocalizer.SearchFriendsActivity"
             android:label="@string/title_activity_search_friends" >
         </activity>
+        <activity
+            android:name="pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.SearchFriendsListView"
+            android:label="@string/title_activity_search_friends_list_view" >
+        </activity>
+        <activity
+            android:name="pl.edu.zut.mwojtalewicz.friendlocalizer.SearchFriendsList"
+            android:label="@string/title_activity_search_friends_list" >
+        </activity>
     </application>
 
 </manifest>

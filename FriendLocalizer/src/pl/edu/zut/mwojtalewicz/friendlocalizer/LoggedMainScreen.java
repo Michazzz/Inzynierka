@@ -3,6 +3,7 @@ package pl.edu.zut.mwojtalewicz.friendlocalizer;
 import java.util.HashMap;
 
 import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.DataBaseHandler;
+import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.UserFunctions;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -50,6 +51,8 @@ public class LoggedMainScreen extends Activity implements OnClickListener {
 				break;
 				
 			case R.id.ivMap:
+				UserFunctions usr = new UserFunctions();
+				usr.logoutUser(getApplicationContext());
 				break;
 				
 			case R.id.ivPerson:

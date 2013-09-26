@@ -3,6 +3,7 @@ package pl.edu.zut.mwojtalewicz.friendLocalizerLibrary;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -54,5 +55,31 @@ public class JSONParser {
 				Log.e("LOL", e.getMessage());
 				return null;
 			}
+	}
+	
+	public ArrayList<SearchFriendsItem> searchFriendsJSONParser(JSONObject json)
+	{
+		ArrayList<SearchFriendsItem> list = new ArrayList<SearchFriendsItem>();
+		SearchFriendsItem item;
+		
+		
+		String uniqueID, name, lastname, email, uid;
+		try {
+			int userNum = Integer.parseInt(json.getString("usersNumber"));
+			JSONObject jsonUser;
+			for(int i = 0; i < userNum; i++)
+			{
+				jsonUser = json.getJSONObject(""+i);
+				uniqueID = jsonUser.getString("uid");
+				name = jsonUser.getString("name");
+				lastname = jsonUser.getString("lastname");
+				email = jsonUser.getString("email");
+				uid = ""+i;
+				item = new SearchFriendsItem(uniqueID, name, lastname, email, uid);
+				list.add(item);
+			}
+		} catch (Exception e) {}
+		
+		return list;
 	}
 }

@@ -4,7 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.Constans;
-import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.DataBaseHandler;
 import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.UserFunctions;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,14 +69,15 @@ public class SearchFriendsActivity extends Activity implements OnClickListener{
 					try {
 						if (json.getString(Constans.KEY_SUCCESS) != null) {
 							String res = json.getString(Constans.KEY_SUCCESS); 
-							if(Integer.parseInt(res) == 1){
-								int userNum = Integer.parseInt(json.getString("usersNumber"));
-								JSONObject jsonUser;
-								for(int i = 0; i < userNum; i++){
-									jsonUser = json.getJSONObject(""+i);
-									Log.d("LOL", jsonUser.toString());
-								}
-							}else{
+							if(Integer.parseInt(res) == 1)
+							{
+								Intent i = new Intent(getApplicationContext(), SearchFriendsList.class);
+								i.putExtra("jsonobject", json.toString());
+								startActivity(i);
+								finish();
+							} 
+							else
+							{
 								
 							}
 						}
