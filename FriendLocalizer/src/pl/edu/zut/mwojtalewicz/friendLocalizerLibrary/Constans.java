@@ -8,6 +8,7 @@ public class Constans {
 	public static String login_tag = "login";
 	public static String register_tag = "register";
 	public static String searchFriends_tag = "searchfriends";
+	public static String inviteFriend_tag = "invite";
 	
 	public static final int DATABASE_VERSION = 1;
 

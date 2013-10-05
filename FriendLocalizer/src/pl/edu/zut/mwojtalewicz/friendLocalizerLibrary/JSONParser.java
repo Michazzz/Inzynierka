@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -12,6 +13,8 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
+
+import android.content.Context;
 import android.os.StrictMode;
 import android.util.Log;
 
@@ -57,12 +60,12 @@ public class JSONParser {
 			}
 	}
 	
-	public ArrayList<SearchFriendsItem> searchFriendsJSONParser(JSONObject json)
+	public ArrayList<SearchFriendsItem> searchFriendsJSONParser(JSONObject json, Context context)
 	{
 		ArrayList<SearchFriendsItem> list = new ArrayList<SearchFriendsItem>();
 		SearchFriendsItem item;
-		
-		
+		DataBaseHandler db = new DataBaseHandler(context);
+    	HashMap<String, String> userDetails = db.getUserDetails();
 		String uniqueID, name, lastname, email, uid;
 		try {
 			int userNum = Integer.parseInt(json.getString("usersNumber"));
@@ -75,8 +78,11 @@ public class JSONParser {
 				lastname = jsonUser.getString("lastname");
 				email = jsonUser.getString("email");
 				uid = ""+i;
-				item = new SearchFriendsItem(uniqueID, name, lastname, email, uid);
-				list.add(item);
+				if(!uniqueID.equals(userDetails.get("uid")))
+				{
+					item = new SearchFriendsItem(uniqueID, name, lastname, email, uid);
+					list.add(item);
+				}
 			}
 		} catch (Exception e) {}
 		

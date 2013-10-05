@@ -6,7 +6,10 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 
 public class UserFunctions {
 	
@@ -14,6 +17,16 @@ public class UserFunctions {
 	
 	public UserFunctions(){
 		jsonParser = new JSONParser();
+	}
+	
+	public JSONObject inviteFriend(String uid_inviting, String uid_invited)
+	{
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", Constans.inviteFriend_tag));
+		params.add(new BasicNameValuePair("uid_inviting", uid_inviting));
+		params.add(new BasicNameValuePair("uid_invited", uid_invited));
+		JSONObject json = jsonParser.getJSONFromUrl(Constans.loginURL, params);
+		return json;
 	}
 	
 	/**
@@ -42,7 +55,6 @@ public class UserFunctions {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("tag", Constans.searchFriends_tag));
 		params.add(new BasicNameValuePair("name", name));
-		params.add(new BasicNameValuePair("lastname", lastname));
 		params.add(new BasicNameValuePair("flag", "false"));
 		JSONObject json = jsonParser.getJSONFromUrl(Constans.loginURL, params);
 		return json;

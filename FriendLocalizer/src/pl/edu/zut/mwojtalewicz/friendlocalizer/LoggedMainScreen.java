@@ -16,9 +16,11 @@ import android.widget.TextView;
 public class LoggedMainScreen extends Activity implements OnClickListener {
 
 	private TextView tvHelloPerson;
-	private Button ivAddContacts;
 	private ImageView ivPerson;
+	private Button ivAddContacts;
 	private Button ivMap;
+	private Button ivLogout;
+	private Button ivFriendList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +29,16 @@ public class LoggedMainScreen extends Activity implements OnClickListener {
 		
 		tvHelloPerson = (TextView) findViewById(R.id.tvHelloPerson);
 		ivAddContacts = (Button)findViewById(R.id.ivAddContacts);
-		ivPerson = (ImageView)findViewById(R.id.ivPerson);
+		ivLogout = (Button)findViewById(R.id.ivLogout);
+		ivFriendList = (Button)findViewById(R.id.ivFriendList);
 		ivMap = (Button) findViewById(R.id.ivMap);
+		ivPerson = (ImageView)findViewById(R.id.ivPerson);
 		
 		ivAddContacts.setOnClickListener(this);
-		ivPerson.setOnClickListener(this);
+		ivFriendList.setOnClickListener(this);
 		ivMap.setOnClickListener(this);
+		ivLogout.setOnClickListener(this);
+		ivPerson.setOnClickListener(this);
 		
 		DataBaseHandler db = new DataBaseHandler(getApplicationContext());
     	HashMap<String, String> userDetails = db.getUserDetails();
@@ -50,9 +56,18 @@ public class LoggedMainScreen extends Activity implements OnClickListener {
 				startActivity(i);
 				break;
 				
+			case R.id.ivFriendList:
+				break;
+				
+				
 			case R.id.ivMap:
+				break;
+				
+			case R.id.ivLogout:
 				UserFunctions usr = new UserFunctions();
 				usr.logoutUser(getApplicationContext());
+				Intent mainintent = new Intent(getApplicationContext(), MainActivity.class);
+				startActivity(mainintent);
 				break;
 				
 			case R.id.ivPerson:

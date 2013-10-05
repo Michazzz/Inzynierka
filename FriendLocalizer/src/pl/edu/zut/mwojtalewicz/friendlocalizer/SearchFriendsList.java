@@ -1,19 +1,31 @@
 package pl.edu.zut.mwojtalewicz.friendlocalizer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.DataBaseHandler;
 import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.JSONParser;
 import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.SearchFriendsItem;
 import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.SearchFriendsListViewAdapter;
+import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.UserFunctions;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ListView;
 
 public class SearchFriendsList extends Activity {
@@ -31,6 +43,7 @@ public class SearchFriendsList extends Activity {
 		setContentView(R.layout.activity_search_friends_list);
 		
 		searchFriendsListView = (ListView)findViewById(R.id.searchFriendsListView);
+		searchFriendsListView.setClickable(true);
 		
 		
 		Intent intent = getIntent();
@@ -40,12 +53,34 @@ public class SearchFriendsList extends Activity {
 		try {
 			JSONObject json = new JSONObject(object);
 			list = new ArrayList<SearchFriendsItem>();
-			list = jParser.searchFriendsJSONParser(json);
-			Log.d("Michazzz", json.toString());
+			list = jParser.searchFriendsJSONParser(json, getApplicationContext());
 			searchAdapter = new SearchFriendsListViewAdapter(this, list);
 			searchFriendsListView.setAdapter(searchAdapter);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-	}
+		searchFriendsListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				  	
+				DataBaseHandler db = new DataBaseHandler(getApplicationContext());
+		    	HashMap<String, String> userDetails = db.getUserDetails();
+		    	UserFunctions usr = new UserFunctions();
+		    	JSONObject json2 = usr.inviteFriend(userDetails.get("uid"), list.get(arg2).getUniqueID());
+		    	AlertDialog alertDialog = new AlertDialog.Builder(
+                        SearchFriendsList.this).create();
+		        alertDialog.setTitle("FriendLocalizer");
+		        alertDialog.setMessage("Zaproszenie wys³ano!");
+		        alertDialog.setIcon(R.drawable.ic_launcher);
+		        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+		                public void onClick(DialogInterface dialog, int which) {
+		                	finish();
+		                }
+		        });
+		        alertDialog.show();
+			}
+		});
+	}	
 }

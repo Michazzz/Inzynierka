@@ -18,58 +18,28 @@
             android:textColor="@android:color/white"
             android:textSize="25sp"
             android:textStyle="bold" />
-        
-        <TextView
-            android:id="@+id/tvSearchName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:text="@string/name" />
-        
-        <EditText
-            android:id="@+id/searchName"
-            android:inputType="textPersonName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white" />
-        
-        <TextView
-            android:id="@+id/tvSearchLastname"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="10dp"
-            android:text="@string/lastname" />
-        
-        <EditText
-            android:id="@+id/searchLastname"
-            android:inputType="textPersonName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white" />
-        
 
         <CheckBox
             android:id="@+id/isEmailSearchActivated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="50dp"
-            android:textSize="22sp"
+            android:layout_marginTop="10dp"
             android:button="@drawable/box"
-            android:text="lub za pomocą e-mail:" />
-            
+            android:text="Szukam po email"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+        
         <TextView
-            android:id="@+id/tvSearchEmail"
+            android:id="@+id/tvSearchName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="25dp"
             android:textColor="@android:color/white"
-            android:text="@string/email" />
-
+            android:text="Wpisz frazę:" />
+        
         <EditText
-            android:id="@+id/searchEmail"
-            android:inputType="textEmailAddress"
+            android:id="@+id/searchName"
+            android:inputType="textPersonName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white" />

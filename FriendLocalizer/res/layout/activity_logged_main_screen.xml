@@ -29,11 +29,27 @@
             />
             
             <Button
+                android:id="@+id/ivFriendList"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+            	android:background="@drawable/location_map"   
+            	android:layout_marginLeft="20dp"
+            />
+            
+            <Button
                 android:id="@+id/ivMap"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
             	android:background="@drawable/location_map"   
-            	android:layout_marginLeft="30dp"
+            	android:layout_marginLeft="20dp"
+            />
+            
+            <Button
+                android:id="@+id/ivLogout"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+            	android:background="@drawable/logout"   
+            	android:layout_marginLeft="20dp"
             />
                  
         </LinearLayout>
@@ -65,6 +81,7 @@
                 android:layout_weight="0.94"
                 android:textColor="@android:color/white"
                 android:textSize="21sp"
+                android:text="Hello User!"
                 android:textStyle="bold" />
         </LinearLayout>
         
