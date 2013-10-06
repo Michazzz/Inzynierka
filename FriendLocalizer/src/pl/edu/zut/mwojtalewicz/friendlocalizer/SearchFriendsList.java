@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.Constans;
 import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.DataBaseHandler;
 import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.JSONParser;
 import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.SearchFriendsItem;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
@@ -69,18 +71,47 @@ public class SearchFriendsList extends Activity {
 		    	HashMap<String, String> userDetails = db.getUserDetails();
 		    	UserFunctions usr = new UserFunctions();
 		    	JSONObject json2 = usr.inviteFriend(userDetails.get("uid"), list.get(arg2).getUniqueID());
-		    	AlertDialog alertDialog = new AlertDialog.Builder(
-                        SearchFriendsList.this).create();
-		        alertDialog.setTitle("FriendLocalizer");
-		        alertDialog.setMessage("Zaproszenie wys³ano!");
-		        alertDialog.setIcon(R.drawable.ic_launcher);
-		        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-		                public void onClick(DialogInterface dialog, int which) {
-		                	finish();
-		                }
-		        });
-		        alertDialog.show();
+		    	
+		    	try {
+					if(json2.getString(Constans.KEY_SUCCESS) != null) {
+						String res = json2.getString(Constans.KEY_SUCCESS);
+						String errRes = json2.getString(Constans.KEY_ERROR);
+						
+						if(Integer.parseInt(res) == 1)
+						{
+								setNewAlertDialog("FriendLocalizer", "Zaproszenie wys³ano!", SearchFriendsList.this);
+						}else
+						{
+							switch(Integer.parseInt(errRes))
+							{
+								case 5:
+									setNewAlertDialog("FriendLocalizer", "Zaprosi³eœ ju¿ tego u¿ytkownika, poczekaj na akceptacjê.", SearchFriendsList.this);	
+									break;
+									
+								case 6:
+									setNewAlertDialog("FriendLocalizer", "Nie mo¿esz zaprosiæ swojego znajomego jeszcze raz", SearchFriendsList.this);
+									break;
+							}
+						}
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 			}
 		});
-	}	
+	}
+	
+	private void setNewAlertDialog(String title, String msg, Context context)
+	{
+		AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(msg);
+        alertDialog.setIcon(R.drawable.ic_launcher);
+        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                	
+                }
+        });
+        alertDialog.show();
+	}
 }

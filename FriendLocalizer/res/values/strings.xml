@@ -23,5 +23,6 @@
     <string name="wyszukaj">Wyszukaj znajomych</string>
     <string name="title_activity_search_friends_list_view">SearchFriendsListView</string>
     <string name="title_activity_search_friends_list">SearchFriendsList</string>
+    <string name="title_activity_new_invite_to_friends">NewInviteToFriends</string>
 
 </resources>

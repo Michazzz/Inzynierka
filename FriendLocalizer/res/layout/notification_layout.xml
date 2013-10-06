@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="64dp"
+  android:background="#3b3b3b">
+  
+   <LinearLayout 
+  android:layout_width="116dp"
+  android:layout_height="40dp"
+  android:background="#3b3b3b"
+  android:layout_marginTop="2dp"
+  android:layout_marginLeft="2dp"
+  android:id="@+id/layout_image"
+  >
+       
+    <ImageView 
+    android:id="@+id/notify_image"
+ 	android:layout_width="fill_parent"
+  	android:layout_height="fill_parent"
+  	android:layout_marginTop="10dp"
+  	>
+  	</ImageView>
+  
+  </LinearLayout>
+  
+  <RelativeLayout android:id="@+id/content_layout"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginTop="2dp"
+  android:layout_toRightOf="@+id/layout_image">
+ 
+  <TextView android:id="@+id/title_text"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:text="Title Content"
+  android:textStyle="bold"
+  android:layout_marginLeft="5dp"
+  android:textSize="15sp"
+  android:textColor="#21dbd4">
+  </TextView>
+ 
+  <TextView android:id="@+id/message_text"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:layout_below="@+id/title_text"
+  android:layout_marginLeft="5dp"
+  android:text="Message Content"
+  android:textSize="15sp"
+  android:textColor="#21dbd4">
+  </TextView>
+ 
+  </RelativeLayout>
+  
+</RelativeLayout>

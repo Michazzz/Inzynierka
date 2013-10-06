@@ -9,6 +9,7 @@ public class Constans {
 	public static String register_tag = "register";
 	public static String searchFriends_tag = "searchfriends";
 	public static String inviteFriend_tag = "invite";
+	public static String refreshFriendsList = "refreshfriends";
 	
 	public static final int DATABASE_VERSION = 1;
 
@@ -25,6 +26,8 @@ public class Constans {
 	public static final String KEY_UID = "uid";
 	public static final String KEY_CREATED_AT = "created_at";
 	public static String KEY_SUCCESS = "success";
+	public static String KEY_ERROR = "error";
+	public static String KEY_ERROR_MSG = "error_msg";
 	
 	public static final String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
 			+ KEY_ID + " INTEGER PRIMARY KEY," 

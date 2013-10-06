@@ -41,13 +41,14 @@ public final class R {
         public static final int social_person=0x7f02000c;
     }
     public static final class id {
-        public static final int action_settings=0x7f090020;
+        public static final int action_settings=0x7f090025;
         public static final int btnLinkToLoginScreen=0x7f090017;
         public static final int btnLinkToRegisterScreen=0x7f090004;
         public static final int btnLogin=0x7f090003;
         public static final int btnRegister=0x7f090016;
         public static final int callerCertContent=0x7f09000e;
         public static final int content=0x7f09000d;
+        public static final int content_layout=0x7f090022;
         public static final int footer=0x7f09000f;
         public static final int header=0x7f09000a;
         public static final int isEmailSearchActivated=0x7f090018;
@@ -57,10 +58,13 @@ public final class R {
         public static final int ivMap=0x7f090008;
         public static final int ivPerson=0x7f09000b;
         public static final int ivPhotoListViewItem=0x7f09001d;
+        public static final int layout_image=0x7f090020;
         public static final int list=0x7f090005;
         public static final int loginEmail=0x7f090000;
         public static final int loginPassword=0x7f090001;
         public static final int login_error=0x7f090002;
+        public static final int message_text=0x7f090024;
+        public static final int notify_image=0x7f090021;
         public static final int registerEmail=0x7f090013;
         public static final int registerLastname=0x7f090012;
         public static final int registerName=0x7f090011;
@@ -69,6 +73,7 @@ public final class R {
         public static final int searchBtn=0x7f09001b;
         public static final int searchFriendsListView=0x7f09001c;
         public static final int searchName=0x7f09001a;
+        public static final int title_text=0x7f090023;
         public static final int tvEmailListViewItem=0x7f09001f;
         public static final int tvGpsStatus=0x7f090010;
         public static final int tvHelloPerson=0x7f09000c;
@@ -79,20 +84,23 @@ public final class R {
         public static final int activity_log_in=0x7f030000;
         public static final int activity_logged_main_screen=0x7f030001;
         public static final int activity_main=0x7f030002;
-        public static final int activity_register=0x7f030003;
-        public static final int activity_search_friends=0x7f030004;
-        public static final int activity_search_friends_list=0x7f030005;
-        public static final int activity_search_friends_list_view=0x7f030006;
+        public static final int activity_new_invite_to_friends=0x7f030003;
+        public static final int activity_register=0x7f030004;
+        public static final int activity_search_friends=0x7f030005;
+        public static final int activity_search_friends_list=0x7f030006;
+        public static final int activity_search_friends_list_view=0x7f030007;
+        public static final int notification_layout=0x7f030008;
     }
     public static final class menu {
         public static final int log_in=0x7f080000;
         public static final int logged_inctivity=0x7f080001;
         public static final int logged_main_screen=0x7f080002;
         public static final int main=0x7f080003;
-        public static final int register=0x7f080004;
-        public static final int search_friends=0x7f080005;
-        public static final int search_friends_list=0x7f080006;
-        public static final int search_friends_list_view=0x7f080007;
+        public static final int new_invite_to_friends=0x7f080004;
+        public static final int register=0x7f080005;
+        public static final int search_friends=0x7f080006;
+        public static final int search_friends_list=0x7f080007;
+        public static final int search_friends_list_view=0x7f080008;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -109,6 +117,7 @@ public final class R {
         public static final int title_activity_logged_inctivity=0x7f050008;
         public static final int title_activity_logged_main_screen=0x7f05000f;
         public static final int title_activity_main=0x7f050009;
+        public static final int title_activity_new_invite_to_friends=0x7f050016;
         public static final int title_activity_register=0x7f05000a;
         public static final int title_activity_search_friends=0x7f050012;
         public static final int title_activity_search_friends_list=0x7f050015;

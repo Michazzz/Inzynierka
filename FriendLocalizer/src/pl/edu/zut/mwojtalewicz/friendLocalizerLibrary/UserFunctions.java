@@ -2,14 +2,10 @@ package pl.edu.zut.mwojtalewicz.friendLocalizerLibrary;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
-
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 
 public class UserFunctions {
 	
@@ -19,6 +15,21 @@ public class UserFunctions {
 		jsonParser = new JSONParser();
 	}
 	
+	public JSONObject refreshFriendsList(String uid_user)
+	{
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", Constans.refreshFriendsList));
+		params.add(new BasicNameValuePair("uid_user", uid_user));
+		JSONObject json = jsonParser.getJSONFromUrl(Constans.loginURL, params);
+		return json;
+	}
+	
+	/** 
+	 * Funkcja, która wysy³a zapytanie w JSON do serwera, z parametrami koniecznymi do utworzenia nowego zaproszenia.
+	 * @param uid_inviting
+	 * @param uid_invited
+	 * @return
+	 */
 	public JSONObject inviteFriend(String uid_inviting, String uid_invited)
 	{
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -94,7 +105,7 @@ public class UserFunctions {
 	}
 	
 	/**
-	 * Function get Login status
+	 * Funkcja sprawdza czy u¿ytkownik jest nadal zalogowany.
 	 * */
 	public boolean isUserLoggedIn(Context context){
 		DataBaseHandler db = new DataBaseHandler(context);
@@ -104,10 +115,16 @@ public class UserFunctions {
 		}
 		return false;
 	}
-	
+	/**
+	 * Funckja, która resetuj¹c tabele bazy danych wylogowuje u¿ytkownika.
+	 * @param context
+	 * @return
+	 */
 	public boolean logoutUser(Context context){
 		DataBaseHandler db = new DataBaseHandler(context);
 		db.resetTables();
 		return true;
 	}
+	
+	
 }

@@ -2,10 +2,18 @@ package pl.edu.zut.mwojtalewicz.friendlocalizer;
 
 import java.util.HashMap;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.Constans;
 import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.DataBaseHandler;
+import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.Notification;
 import pl.edu.zut.mwojtalewicz.friendLocalizerLibrary.UserFunctions;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,6 +53,45 @@ public class LoggedMainScreen extends Activity implements OnClickListener {
     	
     	tvHelloPerson.setText("Witaj " + userDetails.get("name") + "!");
 	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		DataBaseHandler db = new DataBaseHandler(getApplicationContext());
+		HashMap<String, String> userDetails = db.getUserDetails();
+		UserFunctions usr = new UserFunctions();
+		String uniqueID = userDetails.get("uid");
+		JSONObject json = usr.refreshFriendsList(uniqueID);
+		
+		try {
+			if(json.get(Constans.KEY_SUCCESS) != null)
+			{
+				String res = json.getString(Constans.KEY_SUCCESS);
+				String errRes = json.getString(Constans.KEY_ERROR);
+				
+				if(Integer.parseInt(res) == 1)
+				{
+					Intent tokenIntent = new Intent(getApplicationContext(), NewInviteToFriends.class);
+					Notification not = new Notification(tokenIntent);
+					not.displayOwnNotification(getApplicationContext(), "Nowe zaproszenie!", "Zosta³eœ zaproszony do znajomych...");
+				}else
+				{
+					switch(Integer.parseInt(errRes))
+					{
+						case 7:
+							//setNewAlertDialog("FriendLocalizer", "Zaprosi³eœ ju¿ tego u¿ytkownika, poczekaj na akceptacjê.", SearchFriendsList.this);
+							break;
+							
+						case 8:
+							break;
+					}
+				}
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void onClick(View v) {
@@ -76,5 +123,19 @@ public class LoggedMainScreen extends Activity implements OnClickListener {
 			default:
 				break;
 		}
+	}
+	
+	private void setNewAlertDialog(String title, String msg, Context context)
+	{
+		AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(msg);
+        alertDialog.setIcon(R.drawable.ic_launcher);
+        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                	
+                }
+        });
+        alertDialog.show();
 	}
 }
