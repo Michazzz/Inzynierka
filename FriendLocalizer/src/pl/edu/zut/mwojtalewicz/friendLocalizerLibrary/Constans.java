@@ -2,6 +2,7 @@ package pl.edu.zut.mwojtalewicz.friendLocalizerLibrary;
 
 public class Constans {
 	
+	
 	public static String loginURL = "http://www.dyplomowa.mwojtalewicz.cba.pl/mobile_log_in.php";
 	public static String registerURL = "http://www.dyplomowa.mwojtalewicz.cba.pl/mobile_log_in.php";
 	
@@ -10,6 +11,10 @@ public class Constans {
 	public static String searchFriends_tag = "searchfriends";
 	public static String inviteFriend_tag = "invite";
 	public static String refreshFriendsList = "refreshfriends";
+	public static String acceptInvite = "accept";
+	public static String declineInvite = "decline";
+	public static String userFriendList = "userfriendlist";
+	public static String removeUserFromFriends = "removefriend";
 	
 	public static final int DATABASE_VERSION = 1;
 

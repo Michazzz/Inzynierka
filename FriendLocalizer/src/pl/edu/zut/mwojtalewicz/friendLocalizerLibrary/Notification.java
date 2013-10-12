@@ -17,11 +17,10 @@ public class Notification {
 		this.newActivity = targetIntent;
 	}
 	
-	public void displayOwnNotification(Context context, String title, String message)
+	public void displayOwnNotification(Context context, String title, String message, String json)
 	{
 		this.newActivity.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		Intent intent = new Intent();
-		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		this.newActivity.putExtra("friendlistjson", json);
 		
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0, this.newActivity, PendingIntent.FLAG_UPDATE_CURRENT);
 		
@@ -32,8 +31,7 @@ public class Notification {
 		
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
 			            							.setContentIntent(contentIntent)
-			            							//.setDefaults(Notification.DEFAULT_SOUND)
-			            							.setAutoCancel(false)
+			            							.setAutoCancel(true)
 										    		.setContentTitle(title)
 										    		.setContentText(message)
 										    		.setContent(contentView)

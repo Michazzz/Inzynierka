@@ -53,6 +53,10 @@
             android:name="pl.edu.zut.mwojtalewicz.friendlocalizer.NewInviteToFriends"
             android:label="@string/title_activity_new_invite_to_friends" >
         </activity>
+        <activity
+            android:name="pl.edu.zut.mwojtalewicz.friendlocalizer.UserFriendList"
+            android:label="@string/title_activity_user_friend_list" >
+        </activity>
     </application>
 
 </manifest>

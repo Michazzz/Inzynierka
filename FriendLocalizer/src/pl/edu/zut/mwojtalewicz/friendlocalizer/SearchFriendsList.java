@@ -85,7 +85,7 @@ public class SearchFriendsList extends Activity {
 							switch(Integer.parseInt(errRes))
 							{
 								case 5:
-									setNewAlertDialog("FriendLocalizer", "Zaprosi³eœ ju¿ tego u¿ytkownika, poczekaj na akceptacjê.", SearchFriendsList.this);	
+									setNewAlertDialog("FriendLocalizer", "Zaprosi³eœ ju¿ tego u¿ytkownika, poczekaj na akceptacjê½.", SearchFriendsList.this);	
 									break;
 									
 								case 6:
@@ -113,5 +113,11 @@ public class SearchFriendsList extends Activity {
                 }
         });
         alertDialog.show();
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		finish();
 	}
 }

@@ -15,6 +15,45 @@ public class UserFunctions {
 		jsonParser = new JSONParser();
 	}
 	
+	public JSONObject removeUserFromFriends(String uid_invited, String uid_inviting)
+	{
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", Constans.removeUserFromFriends));
+		params.add(new BasicNameValuePair("uid_invited", uid_invited));
+		params.add(new BasicNameValuePair("uid_inviting", uid_inviting));
+		JSONObject json = jsonParser.getJSONFromUrl(Constans.loginURL, params);
+		return json;
+	}
+	
+	public JSONObject getUserFriendList(String unique_id)
+	{
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", Constans.userFriendList));
+		params.add(new BasicNameValuePair("unique_id", unique_id));
+		JSONObject json = jsonParser.getJSONFromUrl(Constans.loginURL, params);
+		return json;
+	}
+	
+	public JSONObject declineInvite(String uid_invited, String uid_inviting)
+	{
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", Constans.declineInvite));
+		params.add(new BasicNameValuePair("uid_invited", uid_invited));
+		params.add(new BasicNameValuePair("uid_inviting", uid_inviting));
+		JSONObject json = jsonParser.getJSONFromUrl(Constans.loginURL, params);
+		return json;
+	}
+	
+	public JSONObject acceptInvite(String uid_invited, String uid_inviting)
+	{
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", Constans.acceptInvite));
+		params.add(new BasicNameValuePair("uid_invited", uid_invited));
+		params.add(new BasicNameValuePair("uid_inviting", uid_inviting));
+		JSONObject json = jsonParser.getJSONFromUrl(Constans.loginURL, params);
+		return json;
+	}
+	
 	public JSONObject refreshFriendsList(String uid_user)
 	{
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -25,7 +64,7 @@ public class UserFunctions {
 	}
 	
 	/** 
-	 * Funkcja, która wysy³a zapytanie w JSON do serwera, z parametrami koniecznymi do utworzenia nowego zaproszenia.
+	 * Funkcja, ktï¿½ra wysyï¿½a zapytanie w JSON do serwera, z parametrami koniecznymi do utworzenia nowego zaproszenia.
 	 * @param uid_inviting
 	 * @param uid_invited
 	 * @return
@@ -56,11 +95,11 @@ public class UserFunctions {
 	}
 	
 	/**
-	 * Funkcja, która odpytuje bazê o u¿ytkowników o danym imieniu i nazwisku ( wyszukiwanie znajomych )
+	 * Funkcja, ktï¿½ra odpytuje bazï¿½ o uï¿½ytkownikï¿½w o danym imieniu i nazwisku ( wyszukiwanie znajomych )
 	 * @param name
 	 * @param lastname
 	 * @param checkbox 
-	 * @return lista osób o danym imieniu i nazwisku
+	 * @return lista osï¿½b o danym imieniu i nazwisku
 	 */
 	public JSONObject searchFriends(String name, String lastname){
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -72,7 +111,7 @@ public class UserFunctions {
 	}
 	
 	/**
-	 * funkcja s³u¿¹ca do logowania siê usera
+	 * funkcja sï¿½uï¿½ï¿½ca do logowania siï¿½ usera
 	 * @param email
 	 * @param password
 	 * */
@@ -86,7 +125,7 @@ public class UserFunctions {
 	}
 	
 	/**
-	 * Funkcja tworz¹ca zapytanie do zarejestrowania nowego u¿ytkownika
+	 * Funkcja tworzï¿½ca zapytanie do zarejestrowania nowego uï¿½ytkownika
 	 * @param name
 	 * @param email
 	 * @param password
@@ -105,7 +144,7 @@ public class UserFunctions {
 	}
 	
 	/**
-	 * Funkcja sprawdza czy u¿ytkownik jest nadal zalogowany.
+	 * Funkcja sprawdza czy uï¿½ytkownik jest nadal zalogowany.
 	 * */
 	public boolean isUserLoggedIn(Context context){
 		DataBaseHandler db = new DataBaseHandler(context);
@@ -116,7 +155,7 @@ public class UserFunctions {
 		return false;
 	}
 	/**
-	 * Funckja, która resetuj¹c tabele bazy danych wylogowuje u¿ytkownika.
+	 * Funckja, ktï¿½ra resetujï¿½c tabele bazy danych wylogowuje uï¿½ytkownika.
 	 * @param context
 	 * @return
 	 */

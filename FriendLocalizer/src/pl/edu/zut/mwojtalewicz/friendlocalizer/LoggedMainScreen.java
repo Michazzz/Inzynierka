@@ -73,13 +73,12 @@ public class LoggedMainScreen extends Activity implements OnClickListener {
 				{
 					Intent tokenIntent = new Intent(getApplicationContext(), NewInviteToFriends.class);
 					Notification not = new Notification(tokenIntent);
-					not.displayOwnNotification(getApplicationContext(), "Nowe zaproszenie!", "Zosta³eœ zaproszony do znajomych...");
+					not.displayOwnNotification(getApplicationContext(), "Nowe zaproszenie!", "Zosta³eœ› zaproszony do znajomych...", json.toString());
 				}else
 				{
 					switch(Integer.parseInt(errRes))
 					{
 						case 7:
-							//setNewAlertDialog("FriendLocalizer", "Zaprosi³eœ ju¿ tego u¿ytkownika, poczekaj na akceptacjê.", SearchFriendsList.this);
 							break;
 							
 						case 8:
@@ -104,6 +103,8 @@ public class LoggedMainScreen extends Activity implements OnClickListener {
 				break;
 				
 			case R.id.ivFriendList:
+				Intent i2 = new Intent(getApplicationContext(), UserFriendList.class);
+				startActivity(i2);
 				break;
 				
 				

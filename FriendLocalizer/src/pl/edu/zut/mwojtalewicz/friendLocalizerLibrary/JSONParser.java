@@ -35,7 +35,7 @@ public class JSONParser {
 			
 			DefaultHttpClient httpClient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost(url);
-			httpPost.setEntity(new UrlEncodedFormEntity(params));
+			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 			HttpResponse httpResponse = httpClient.execute(httpPost);
 			HttpEntity httpEntity = httpResponse.getEntity();
@@ -55,7 +55,7 @@ public class JSONParser {
 			return jObj;
 			} catch(Exception e)	
 			{
-				Log.e("LOL", e.getMessage());
+				Log.e("", e.getMessage());
 				return null;
 			}
 	}
@@ -74,6 +74,35 @@ public class JSONParser {
 			{
 				jsonUser = json.getJSONObject(""+i);
 				uniqueID = jsonUser.getString("uid");
+				name = jsonUser.getString("name");
+				lastname = jsonUser.getString("lastname");
+				email = jsonUser.getString("email");
+				uid = ""+i;
+				if(!uniqueID.equals(userDetails.get("uid")))
+				{
+					item = new SearchFriendsItem(uniqueID, name, lastname, email, uid);
+					list.add(item);
+				}
+			}
+		} catch (Exception e) {}
+		
+		return list;
+	}
+	
+	public ArrayList<SearchFriendsItem> newInviteJSONParser(JSONObject json, Context context)
+	{
+		ArrayList<SearchFriendsItem> list = new ArrayList<SearchFriendsItem>();
+		SearchFriendsItem item;
+		DataBaseHandler db = new DataBaseHandler(context);
+    	HashMap<String, String> userDetails = db.getUserDetails();
+		String uniqueID, name, lastname, email, uid;
+		try {
+			int userNum = Integer.parseInt(json.getString("usersNumber"));
+			JSONObject jsonUser;
+			for(int i = 0; i < userNum; i++)
+			{
+				jsonUser = json.getJSONObject(""+i);
+				uniqueID = jsonUser.getString("unique_id");
 				name = jsonUser.getString("name");
 				lastname = jsonUser.getString("lastname");
 				email = jsonUser.getString("email");

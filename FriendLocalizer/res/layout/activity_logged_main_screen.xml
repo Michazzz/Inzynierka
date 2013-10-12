@@ -32,7 +32,7 @@
                 android:id="@+id/ivFriendList"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-            	android:background="@drawable/location_map"   
+            	android:background="@drawable/social_group"   
             	android:layout_marginLeft="20dp"
             />
             
