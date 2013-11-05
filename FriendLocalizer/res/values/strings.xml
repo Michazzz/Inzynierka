@@ -3,6 +3,8 @@
 
     <string name="app_name">FriendLocalizer</string>
     <string name="action_settings">Ustawienia</string>
+    <string name="action_logout">Wyloguj</string>
+    <string name="action_search_friends">Szukaj znajomych</string>
     <string name="hello_world">Hello world!</string>
     <string name="zaloguj">ZALOGUJ</string>
     <string name="email">Adres e-mail</string>
@@ -25,5 +27,5 @@
     <string name="title_activity_search_friends_list">Lista znalezionych</string>
     <string name="title_activity_new_invite_to_friends">Zaproszenia</string>
     <string name="title_activity_user_friend_list">Twoi znajomi</string>
-
+    <string name="title_activity_profile_fragment">Profil</string>
 </resources>
