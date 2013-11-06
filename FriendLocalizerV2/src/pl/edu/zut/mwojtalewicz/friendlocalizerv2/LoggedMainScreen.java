@@ -53,8 +53,6 @@ public class LoggedMainScreen extends android.support.v4.app.FragmentActivity im
 		actionBar.setHomeButtonEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);	
 		
-		if(!canGetLocation())
-			showSettingsAlert();
 		
 		for (String tab_name : tabs) {
 			actionBar.addTab(actionBar.newTab().setText(tab_name)
