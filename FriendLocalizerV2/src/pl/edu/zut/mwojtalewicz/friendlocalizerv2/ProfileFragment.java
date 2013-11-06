@@ -11,6 +11,7 @@ import pl.edu.zut.mwojtalewicz.Library.DataBaseHandler;
 import pl.edu.zut.mwojtalewicz.Library.Notification;
 import pl.edu.zut.mwojtalewicz.Library.UserFunctions;
 import pl.edu.zut.mwojtalewicz.friendlocalizerv2.LoggedMainScreen.MyLocationInterface;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -48,11 +49,13 @@ public class ProfileFragment extends Fragment implements MyLocationInterface {
 	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		
 		ConnectionDetector cd = new ConnectionDetector(getActivity()); 
 		Boolean isInternetPresent = cd.isConnectingToInternet();
-		if(isInternetPresent)
+		
+		if(isInternetPresent == true)
 		{
 			DataBaseHandler db = new DataBaseHandler(getActivity());
 			HashMap<String, String> userDetails = db.getUserDetails();

@@ -65,6 +65,7 @@ public class UserFriendListFragment extends Fragment {
 		super.onResume();
 		ConnectionDetector cd = new ConnectionDetector(getActivity()); 
 		Boolean isInternetPresent = cd.isConnectingToInternet();
+		
 		if(isInternetPresent)
 		{
 			DataBaseHandler db = new DataBaseHandler(getActivity());
@@ -72,6 +73,7 @@ public class UserFriendListFragment extends Fragment {
 			UserFunctions usr = new UserFunctions();
 			String uniqueID = userDetails.get("uid");
 			JSONObject json = usr.getUserFriendList(uniqueID);
+			
 			if(json == null)
 			{
 				Notification not = new Notification(getActivity());

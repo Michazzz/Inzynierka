@@ -1,7 +1,9 @@
 package pl.edu.zut.mwojtalewicz.friendlocalizerv2;
 
+/*
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+*/
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class MapFragment extends Fragment {
-	
+	/*
 	private GoogleMap googleMap;
 	private SupportMapFragment mMapFragment;
-	
+	*/
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -26,7 +28,8 @@ public class MapFragment extends Fragment {
 	}
  
 	private void setUpMapIfNeeded(View v) {
-	    if (googleMap == null) {
+	    /*
+		if (googleMap == null) {
 	    	mMapFragment = ((SupportMapFragment)getFragmentManager().findFragmentById(R.id.map));
 	    	googleMap = mMapFragment.getMap();
 	        if (googleMap != null) {
@@ -39,8 +42,9 @@ public class MapFragment extends Fragment {
 	        	
 	        }
 	    }
+	    */
 	}
-	
+	/*
 	public void onDestroyView ()
 	{
 	      try{
@@ -52,4 +56,5 @@ public class MapFragment extends Fragment {
 	      }
 	    super.onDestroyView();  
 	}
+	*/
 }
