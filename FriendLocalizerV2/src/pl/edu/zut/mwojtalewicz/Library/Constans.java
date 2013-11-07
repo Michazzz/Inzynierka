@@ -16,6 +16,8 @@ public class Constans {
 	public static String declineInvite = "decline";
 	public static String userFriendList = "userfriendlist";
 	public static String removeUserFromFriends = "removefriend";
+	public static String userGpsPosition = "usergpsposition";
+	public static String friendsLocation = "locatefriends";
 	
 	public static final int DATABASE_VERSION = 1;
 

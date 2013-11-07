@@ -15,6 +15,26 @@ public class UserFunctions {
 		jsonParser = new JSONParser();
 	}
 	
+	public JSONObject showUserFriendsLocatons(String unique_id)
+	{
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", Constans.friendsLocation));
+		params.add(new BasicNameValuePair("unique_id", unique_id));
+		JSONObject json = jsonParser.getJSONFromUrl(Constans.loginURL, params);
+		return json;
+	}
+	
+	public JSONObject sendUserGpsLocation(String unique_id, String longitude, String latitude)
+	{
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", Constans.userGpsPosition));
+		params.add(new BasicNameValuePair("unique_id", unique_id));
+		params.add(new BasicNameValuePair("longitude", longitude));
+		params.add(new BasicNameValuePair("latitude", latitude));
+		JSONObject json = jsonParser.getJSONFromUrl(Constans.loginURL, params);
+		return json;
+	}
+	
 	public JSONObject removeUserFromFriends(String uid_invited, String uid_inviting)
 	{
 		List<NameValuePair> params = new ArrayList<NameValuePair>();

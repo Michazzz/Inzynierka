@@ -1,5 +1,11 @@
 package pl.edu.zut.mwojtalewicz.friendlocalizerv2;
 
+import java.util.HashMap;
+
+import org.json.JSONObject;
+
+import pl.edu.zut.mwojtalewicz.Library.ConnectionDetector;
+import pl.edu.zut.mwojtalewicz.Library.DataBaseHandler;
 import pl.edu.zut.mwojtalewicz.Library.TabsPagerAdapter;
 import pl.edu.zut.mwojtalewicz.Library.UserFunctions;
 import android.app.ActionBar;
@@ -144,6 +150,7 @@ public class LoggedMainScreen extends android.support.v4.app.FragmentActivity im
 	public void onLocationChanged(Location location) {
 		Log.d("LOL", "Latitude: " + location.getLatitude() + "\tLongitude: "+location.getLongitude());
 		mCallback.onGpsChange(location.getLongitude(), location.getLatitude());
+		
 	}
 
 	@Override
@@ -218,6 +225,7 @@ public class LoggedMainScreen extends android.support.v4.app.FragmentActivity im
                         if (location != null) {
                             latitude = location.getLatitude();
                             longitude = location.getLongitude();
+                            mCallback.onGpsChange(location.getLongitude(), location.getLatitude());
                         }
                     }
                 }
@@ -231,6 +239,7 @@ public class LoggedMainScreen extends android.support.v4.app.FragmentActivity im
                             if (location != null) {
                                 latitude = location.getLatitude();
                                 longitude = location.getLongitude();
+                                mCallback.onGpsChange(location.getLongitude(), location.getLatitude());
                             }
                         }
                     }
@@ -242,5 +251,25 @@ public class LoggedMainScreen extends android.support.v4.app.FragmentActivity im
         }
  
         return location;
+    }
+    
+    public void sendGpsLocation(Double longitude, Double latitude)
+    {
+		ConnectionDetector cd = new ConnectionDetector(getApplicationContext()); 
+		Boolean isInternetPresent = cd.isConnectingToInternet();
+		
+		if(isInternetPresent == true)
+		{
+			DataBaseHandler db = new DataBaseHandler(getApplicationContext());
+			HashMap<String, String> userDetails = db.getUserDetails();
+			UserFunctions usr = new UserFunctions();
+			String uniqueID = userDetails.get("uid");
+			JSONObject json = usr.sendUserGpsLocation(uniqueID, ""+longitude, ""+latitude);
+			
+			if(json == null)
+			{
+				
+			}
+		}
     }
 }
