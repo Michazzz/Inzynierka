@@ -78,6 +78,8 @@ public class MapFragment extends android.support.v4.app.Fragment {
 					googleMap.addMarker(marker).showInfoWindow();
 				}
 			} catch (Exception e) {e.printStackTrace();}
+			
+			
 		}	    
 	}
 	

@@ -22,6 +22,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+    
+    
     
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -34,6 +37,11 @@
         android:theme="@style/AppTheme" >
         
         <uses-library    android:name="com.google.android.maps" android:required="false" />
+        <receiver android:name="ProfileFragment$MyReceiver" android:enabled="true">
+           	<intent-filter>
+                <action android:name="pl.edu.zut.mwojtalewicz.LonLat" ></action>
+            </intent-filter>
+        </receiver>
         
         <activity
             android:name="pl.edu.zut.mwojtalewicz.friendlocalizerv2.MainActivity"

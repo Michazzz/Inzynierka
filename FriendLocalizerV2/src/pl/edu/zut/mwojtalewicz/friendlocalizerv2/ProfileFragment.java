@@ -10,9 +10,9 @@ import pl.edu.zut.mwojtalewicz.Library.Constans;
 import pl.edu.zut.mwojtalewicz.Library.DataBaseHandler;
 import pl.edu.zut.mwojtalewicz.Library.Notification;
 import pl.edu.zut.mwojtalewicz.Library.UserFunctions;
-import pl.edu.zut.mwojtalewicz.friendlocalizerv2.LoggedMainScreen.MyLocationInterface;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,13 +20,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class ProfileFragment extends Fragment implements MyLocationInterface {
+public class ProfileFragment extends Fragment {
 	
 	private TextView tvHelloPerson;
 	private TextView tvGpsStatus;
@@ -47,6 +48,13 @@ public class ProfileFragment extends Fragment implements MyLocationInterface {
     	
     	return mScrollView;
 	}
+	
+	@Override public void setUserVisibleHint(boolean isVisibleToUser) { 
+		super.setUserVisibleHint(isVisibleToUser); 
+			if (isVisibleToUser) { 
+				
+			} 
+		}
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -105,9 +113,8 @@ public class ProfileFragment extends Fragment implements MyLocationInterface {
 		else
 		{
 			setInternetConnectionAlertDialog("FriendLocalizer", "Brak aktywnego połączenia z internetem. Włączyć?", getActivity());
-		}		
+		}		  
 	}	
-	
 	
 	private void setInternetConnectionAlertDialog(String title, String msg, Context context)
 	{
@@ -133,9 +140,20 @@ public class ProfileFragment extends Fragment implements MyLocationInterface {
 		});
         alertDialog.show();
 	}
+	
+	public static class MyReceiver extends BroadcastReceiver {
 
-	@Override
-	public void onGpsChange(double longitude, double latitude) {
-		tvGpsStatus.setText("Długość: "+longitude + "\nSzerokość: " + latitude + "\n");
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			String lon = intent.getExtras().getString("latitude");
+			String lat = intent.getExtras().getString("longitude");
+			
+			Log.d(Constans.Tag, "Broadcast" + lon + " " + lat);
+			
+			//tvGpsStatus.setText("Długość: " + lon + "\n" + "Szerokość: " + lat);
+		}
 	}
+	
+	
 }
