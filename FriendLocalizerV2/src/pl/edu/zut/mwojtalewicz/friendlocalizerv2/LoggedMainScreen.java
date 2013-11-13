@@ -185,6 +185,7 @@ public class LoggedMainScreen extends android.support.v4.app.FragmentActivity im
 		// TODO Auto-generated method stub
 		super.onPause();
 		locationManager.removeUpdates(this);
+		finish();
 	}
 
 	public void showSettingsAlert(){

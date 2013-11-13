@@ -201,30 +201,33 @@ containing a value of this type.
         public static final int social_person=0x7f020028;
     }
     public static final class id {
-        public static final int action_logout=0x7f05002a;
-        public static final int action_search_friends=0x7f050029;
-        public static final int action_settings=0x7f050028;
+        public static final int action_logout=0x7f05002d;
+        public static final int action_search_friends=0x7f05002c;
+        public static final int action_settings=0x7f05002b;
         public static final int btnLinkToLoginScreen=0x7f050012;
         public static final int btnLinkToRegisterScreen=0x7f050009;
         public static final int btnLogin=0x7f050008;
         public static final int btnRegister=0x7f050011;
-        public static final int content=0x7f050024;
-        public static final int content_layout=0x7f05001e;
-        public static final int header=0x7f050021;
+        public static final int content=0x7f050027;
+        public static final int content_frame=0x7f05001c;
+        public static final int content_layout=0x7f050021;
+        public static final int drawer_layout=0x7f05001b;
+        public static final int header=0x7f050024;
         public static final int hybrid=0x7f050004;
         public static final int isEmailSearchActivated=0x7f050013;
-        public static final int ivPerson=0x7f050022;
+        public static final int ivPerson=0x7f050025;
         public static final int ivPhotoListViewItem=0x7f050018;
-        public static final int layout_image=0x7f05001c;
+        public static final int layout_image=0x7f05001f;
+        public static final int left_drawer=0x7f05001d;
         public static final int loginEmail=0x7f050005;
         public static final int loginPassword=0x7f050006;
         public static final int login_error=0x7f050007;
-        public static final int map=0x7f05001b;
-        public static final int message_text=0x7f050020;
+        public static final int map=0x7f05001e;
+        public static final int message_text=0x7f050023;
         public static final int newInviteToFriends=0x7f05000b;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
-        public static final int notify_image=0x7f05001d;
+        public static final int notify_image=0x7f050020;
         public static final int pager=0x7f05000a;
         public static final int registerEmail=0x7f05000e;
         public static final int registerLastname=0x7f05000d;
@@ -236,14 +239,14 @@ containing a value of this type.
         public static final int searchFriendsListView=0x7f050017;
         public static final int searchName=0x7f050015;
         public static final int terrain=0x7f050003;
-        public static final int title_text=0x7f05001f;
+        public static final int title_text=0x7f050022;
         public static final int tvEmailListViewItem=0x7f05001a;
-        public static final int tvGPSStatus=0x7f050026;
-        public static final int tvGpsTitle=0x7f050025;
-        public static final int tvHelloPerson=0x7f050023;
+        public static final int tvGPSStatus=0x7f050029;
+        public static final int tvGpsTitle=0x7f050028;
+        public static final int tvHelloPerson=0x7f050026;
         public static final int tvSearchName=0x7f050014;
         public static final int tvTitleListViewItem=0x7f050019;
-        public static final int userFriendsListView=0x7f050027;
+        public static final int userFriendsListView=0x7f05002a;
     }
     public static final class layout {
         public static final int activity_log_in=0x7f030000;
@@ -254,10 +257,12 @@ containing a value of this type.
         public static final int activity_search_friends=0x7f030005;
         public static final int activity_search_friends_list=0x7f030006;
         public static final int activity_search_friends_list_view=0x7f030007;
-        public static final int map_fragment=0x7f030008;
-        public static final int notification_layout=0x7f030009;
-        public static final int profile_fragment=0x7f03000a;
-        public static final int user_friends_list_fragment=0x7f03000b;
+        public static final int drawer_layout=0x7f030008;
+        public static final int drawer_list_item=0x7f030009;
+        public static final int map_fragment=0x7f03000a;
+        public static final int notification_layout=0x7f03000b;
+        public static final int profile_fragment=0x7f03000c;
+        public static final int user_friends_list_fragment=0x7f03000d;
     }
     public static final class menu {
         public static final int logged_main_screen=0x7f090000;

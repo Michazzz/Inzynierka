@@ -129,5 +129,4 @@ public class UserFriendListFragment extends Fragment {
     });
         alertDialog.show();
 	}
-
 }

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import pl.edu.zut.mwojtalewicz.Library.ConnectionDetector;
 import pl.edu.zut.mwojtalewicz.Library.Constans;
 import pl.edu.zut.mwojtalewicz.Library.DataBaseHandler;
@@ -17,8 +19,10 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -28,9 +32,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class ProfileFragment extends Fragment implements MyLocationIntrface{
-	
+
 	private TextView tvHelloPerson;
 	private TextView tvGpsStatus;
+	
+	private SharedPreferences mPref;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,8 +50,15 @@ public class ProfileFragment extends Fragment implements MyLocationIntrface{
 		DataBaseHandler db = new DataBaseHandler(getActivity());
     	HashMap<String, String> userDetails = db.getUserDetails();
     	tvHelloPerson.setText(userDetails.get("name") + " " + userDetails.get("lastname"));
-    	tvGpsStatus.setText("Oczekuję na dane...");
     	
+    	try{
+	    	LatLng lt = loadData();
+			tvGpsStatus.setText("Długość: " + lt.longitude + "\n" + 
+					"Szerokość: " + lt.latitude + "\n"
+					);
+    	} catch (Exception e){
+    		tvGpsStatus.setText("Oczekuję na dane...");
+    	}
     	return mScrollView;
 	}
 	
@@ -147,6 +160,7 @@ public class ProfileFragment extends Fragment implements MyLocationIntrface{
 		tvGpsStatus.setText("Długość: " + location.getLongitude() + "\n" + 
 							"Szerokość: " + location.getLatitude() + "\n"
 							);
+		saveData(location);
 		try{
 			sendGpsPosition(location.getLongitude(), location.getLatitude());
 		} catch (Exception e){
@@ -160,7 +174,7 @@ public class ProfileFragment extends Fragment implements MyLocationIntrface{
 		tvGpsStatus.setText("Długość: " + location.getLongitude() + "\n" + 
 				"Szerokość: " + location.getLatitude() + "\n"
 				);
-		
+		saveData(location);
 		try{
 			sendGpsPosition(location.getLongitude(), location.getLatitude());
 		} catch (Exception e){
@@ -190,6 +204,21 @@ public class ProfileFragment extends Fragment implements MyLocationIntrface{
 			}
 		}
     }
+    
+	private void saveData(Location loc)
+	{
+			SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
+
+			editor.putString("longitude", ""+loc.getLongitude());
+			editor.putString("latitude", ""+loc.getLatitude());
+			editor.commit();
+	}
 	
+	public LatLng loadData(){
+		mPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		double lang = Double.parseDouble(mPref.getString("longitude", null));
+		double lat = Double.parseDouble(mPref.getString("latitude", null));
 	
+		return new LatLng(lat, lang); 
+	}
 }
