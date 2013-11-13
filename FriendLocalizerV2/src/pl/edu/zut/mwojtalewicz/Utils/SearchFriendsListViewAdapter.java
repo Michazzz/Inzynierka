@@ -14,12 +14,10 @@ public class SearchFriendsListViewAdapter extends BaseAdapter {
 	
 	private LayoutInflater inflater;
 	private ArrayList<SearchFriendsItem> objects;
-	
 
 	private class ViewHolder {
 		TextView tvTitle;
 	    TextView tvEmail;
-	    //ImageView ivProfilePhoto;
 	}
 	
 	public SearchFriendsListViewAdapter(Context context, ArrayList<SearchFriendsItem> objects)

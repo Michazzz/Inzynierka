@@ -10,24 +10,24 @@ import pl.edu.zut.mwojtalewicz.Library.Constans;
 import pl.edu.zut.mwojtalewicz.Library.DataBaseHandler;
 import pl.edu.zut.mwojtalewicz.Library.Notification;
 import pl.edu.zut.mwojtalewicz.Library.UserFunctions;
+import pl.edu.zut.mwojtalewicz.friendlocalizerv2.LoggedMainScreen.MyLocationIntrface;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements MyLocationIntrface{
 	
 	private TextView tvHelloPerson;
 	private TextView tvGpsStatus;
@@ -140,20 +140,56 @@ public class ProfileFragment extends Fragment {
 		});
         alertDialog.show();
 	}
-	
-	public static class MyReceiver extends BroadcastReceiver {
 
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			// TODO Auto-generated method stub
-			String lon = intent.getExtras().getString("latitude");
-			String lat = intent.getExtras().getString("longitude");
-			
-			Log.d(Constans.Tag, "Broadcast" + lon + " " + lat);
-			
-			//tvGpsStatus.setText("Długość: " + lon + "\n" + "Szerokość: " + lat);
+	@Override
+	public void onGPSChange(Location location) {
+		// TODO Auto-generated method stub
+		tvGpsStatus.setText("Długość: " + location.getLongitude() + "\n" + 
+							"Szerokość: " + location.getLatitude() + "\n"
+							);
+		try{
+			sendGpsPosition(location.getLongitude(), location.getLatitude());
+		} catch (Exception e){
+			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void onNetworkChange(Location location) {
+		// TODO Auto-generated method stub
+		tvGpsStatus.setText("Długość: " + location.getLongitude() + "\n" + 
+				"Szerokość: " + location.getLatitude() + "\n"
+				);
+		
+		try{
+			sendGpsPosition(location.getLongitude(), location.getLatitude());
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+    public void sendGpsPosition(Double longitude, Double latitude)
+    {
+		ConnectionDetector cd = new ConnectionDetector(getActivity()); 
+		Boolean isInternetPresent = cd.isConnectingToInternet();
+		
+		if(isInternetPresent)
+		{
+			DataBaseHandler db = new DataBaseHandler(getActivity());
+			HashMap<String, String> userDetails = db.getUserDetails();
+			UserFunctions usr = new UserFunctions();
+			String uniqueID = userDetails.get("uid");
+			if(uniqueID != null)
+			{
+				JSONObject json = usr.sendUserGpsLocation(uniqueID, ""+longitude, ""+latitude);
+			
+				if(json == null)
+				{
+				
+				}
+			}
+		}
+    }
 	
 	
 }

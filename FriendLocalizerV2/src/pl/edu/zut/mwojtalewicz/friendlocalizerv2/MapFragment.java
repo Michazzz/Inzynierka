@@ -7,6 +7,8 @@ import org.json.JSONObject;
 import pl.edu.zut.mwojtalewicz.Library.ConnectionDetector;
 import pl.edu.zut.mwojtalewicz.Library.DataBaseHandler;
 import pl.edu.zut.mwojtalewicz.Library.UserFunctions;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -22,31 +24,45 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapFragment extends android.support.v4.app.Fragment {
 	private GoogleMap googleMap;
 	private SupportMapFragment mMapFragment;
+	
+    protected LocationManager locationManager;
+    
+    boolean isGPSEnabled = false;
+    boolean isNetworkEnabled = false;
+    
+    Location loc;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
 	    View v = inflater.inflate(R.layout.map_fragment, container, false);
-
 	    setUpMapIfNeeded();
 	    return v;
 		
 	}
  
 	private void setUpMapIfNeeded() 
-	{
-		
+	{        
 		if (googleMap == null) {
 	    	mMapFragment = ((SupportMapFragment)getFragmentManager().findFragmentById(R.id.map));
 	    	googleMap = mMapFragment.getMap();
-	        if (googleMap != null) {
+        	googleMap.setMyLocationEnabled(true);
+        	googleMap.getUiSettings().setZoomControlsEnabled(true);
+        	googleMap.getUiSettings().setZoomGesturesEnabled(false);
+        	googleMap.getUiSettings().setCompassEnabled(true);
+        	googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+	    } else
+	    if (googleMap != null) {
+	    		mMapFragment = ((SupportMapFragment)getFragmentManager().findFragmentById(R.id.map));
+	    		googleMap = mMapFragment.getMap();
 	        	googleMap.setMyLocationEnabled(true);
 	        	googleMap.getUiSettings().setZoomControlsEnabled(true);
 	        	googleMap.getUiSettings().setZoomGesturesEnabled(false);
 	        	googleMap.getUiSettings().setCompassEnabled(true);
 	        	googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-	        }
-	    }
+	        	
+	     }
 		
 		ConnectionDetector cd = new ConnectionDetector(getActivity()); 
 		Boolean isInternetPresent = cd.isConnectingToInternet();
@@ -78,8 +94,6 @@ public class MapFragment extends android.support.v4.app.Fragment {
 					googleMap.addMarker(marker).showInfoWindow();
 				}
 			} catch (Exception e) {e.printStackTrace();}
-			
-			
 		}	    
 	}
 	
@@ -87,19 +101,16 @@ public class MapFragment extends android.support.v4.app.Fragment {
 	public void onDestroyView ()
 	{
 	    super.onDestroyView();  
-	      try{
-	    	  SupportMapFragment fragment = ((SupportMapFragment) getFragmentManager().findFragmentById(R.id.map));
-	    	  FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-	    	  ft.remove(fragment);
-	    	  ft.commit();
-	      }catch(Exception e){
-	      }
+	    SupportMapFragment fragment = ((SupportMapFragment) getFragmentManager().findFragmentById(R.id.map));
+	    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+	    ft.remove(fragment);
+	    ft.commit();
+	    googleMap.clear();
 	}
 
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		setUpMapIfNeeded();
-	}
+	}	
 }
