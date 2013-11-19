@@ -42,7 +42,7 @@ public class LoggedMainScreen extends android.support.v4.app.FragmentActivity im
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_logged_main_screen);
-		
+				
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		actionBar = getActionBar();
 		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
@@ -152,27 +152,28 @@ public class LoggedMainScreen extends android.support.v4.app.FragmentActivity im
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-	    locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-	    isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-	    isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-	    if (!isGPSEnabled && !isNetworkEnabled) {
-	        	showSettingsAlert();
-	     }else{
-	        	if(isNetworkEnabled && !isGPSEnabled){
-	                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-	                Log.d(Constans.Tag, "Network");
-	                if (locationManager != null) {
-	                    locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-	                }
-	        	}
-	        	else {	
-	                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-	                Log.d(Constans.Tag, "GPS");
-	                if (locationManager != null) {
-	                    locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-	                }
-	        	}
-	        }
+		
+		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+		isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+		if (!isGPSEnabled && !isNetworkEnabled) {
+		       	showSettingsAlert();
+		}else{
+			if(isNetworkEnabled && !isGPSEnabled){
+				locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+		        Log.d(Constans.Tag, "Network");
+		        if (locationManager != null) {
+		        	locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		        }
+			}
+			else {	
+				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+			    Log.d(Constans.Tag, "GPS");
+			    if (locationManager != null) {
+			    	locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+			    }
+			}
+		}
 	}
 	
 	public interface MyLocationIntrface {
@@ -185,7 +186,6 @@ public class LoggedMainScreen extends android.support.v4.app.FragmentActivity im
 		// TODO Auto-generated method stub
 		super.onPause();
 		locationManager.removeUpdates(this);
-		finish();
 	}
 
 	public void showSettingsAlert(){
@@ -203,6 +203,7 @@ public class LoggedMainScreen extends android.support.v4.app.FragmentActivity im
         alertDialog.setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
             	dialog.dismiss();
+            	finish();
             }
         });
         alertDialog.show();

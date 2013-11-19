@@ -28,4 +28,6 @@
     <string name="title_activity_new_invite_to_friends">Zaproszenia</string>
     <string name="title_activity_user_friend_list">Twoi znajomi</string>
     <string name="title_activity_profile_fragment">Profil</string>
+    <string name="title_activity_accept_replay">Zaakceptowane zaproszenia</string>
+
 </resources>

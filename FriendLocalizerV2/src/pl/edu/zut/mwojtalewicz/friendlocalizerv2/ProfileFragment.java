@@ -122,6 +122,25 @@ public class ProfileFragment extends Fragment implements MyLocationIntrface{
 					e.printStackTrace();
 				}
 			}
+			
+			JSONObject json2 = usr.checkAcceptedInvitations(uniqueID);
+			
+			try {
+				if(json2.get(Constans.KEY_SUCCESS) != null)
+				{
+					String res = json2.getString(Constans.KEY_SUCCESS);
+					
+					if(Integer.parseInt(res) == 1)
+					{
+						
+						Intent tokenIntent = new Intent(getActivity(), AcceptReplay.class);
+						Notification not = new Notification(tokenIntent);
+						not.displayOwnNotification(getActivity(), "Akceptacje", "Zostały zaakceptowane zaproszenia...", json2.toString());
+					}
+				}
+			} catch (Exception e){
+				e.getMessage();
+			}
 		}
 		else
 		{
@@ -149,6 +168,7 @@ public class ProfileFragment extends Fragment implements MyLocationIntrface{
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				getActivity().finish();
+				dialog.dismiss();
 			}
 		});
         alertDialog.show();

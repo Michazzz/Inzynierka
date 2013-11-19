@@ -15,6 +15,25 @@ public class UserFunctions {
 		jsonParser = new JSONParser();
 	}
 	
+	public JSONObject acceptReplay(String uid_inviting, String uid_invited)
+	{
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", Constans.inviteReplay));
+		params.add(new BasicNameValuePair("uid_inviting", uid_inviting));
+		params.add(new BasicNameValuePair("uid_invited", uid_invited));
+		JSONObject json = jsonParser.getJSONFromUrl(Constans.loginURL, params);
+		return json;
+	}
+	
+	public JSONObject checkAcceptedInvitations(String uid_inviting)
+	{
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", Constans.checkInvitations));
+		params.add(new BasicNameValuePair("uid_inviting", uid_inviting));
+		JSONObject json = jsonParser.getJSONFromUrl(Constans.loginURL, params);
+		return json;
+	}
+	
 	public JSONObject showUserFriendsLocatons(String unique_id)
 	{
 		List<NameValuePair> params = new ArrayList<NameValuePair>();

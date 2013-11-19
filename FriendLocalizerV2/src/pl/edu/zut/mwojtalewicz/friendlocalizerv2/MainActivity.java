@@ -14,42 +14,80 @@ public class MainActivity extends Activity {
 
 	private UserFunctions userFunctions;	
 	private ProgressDialog progress;
-
+	
+	private Boolean isInternetPresent;
+	private ConnectionDetector cd;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		ConnectionDetector cd = new ConnectionDetector(getApplicationContext()); 
-		Boolean isInternetPresent = cd.isConnectingToInternet();
+        cd = new ConnectionDetector(this);
+        isInternetPresent = cd.isConnectingToInternet();
+        
+        if(!isInternetPresent)
+        {
+                setNewAlertDialog("Połączenie Internetowe", "Czy chcesz włączyć przesył danych?", this);
+        }
+        else
+        {
+                userFunctions = new UserFunctions();
+                if(userFunctions.isUserLoggedIn(this)){
+                	setContentView(R.layout.activity_main);
+         
+                	progress = ProgressDialog.show(this, "Ładowanie ustawień.",
+                          "Proszę czekać...", true);
+         
+                	Intent logged = new Intent(getApplicationContext(), LoggedMainScreen.class);
+                	logged.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                	startActivity(logged);
+                	progress.dismiss();
+                	finish();
+                }else{
+                	Intent login = new Intent(getApplicationContext(), LogInActivity.class);
+                	login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                	startActivity(login);
+                	finish();
+                }
+        }
+	}
+
+	
+
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
 		
-		if(!isInternetPresent)
+		if(isInternetPresent)
 		{
-			setNewAlertDialog("Połączenie Internetowe", "Czy chcesz włączyć przesył danych?", this);
-		}
-		else
-		{
-			userFunctions = new UserFunctions();
-	        if(userFunctions.isUserLoggedIn(getApplicationContext())){
-	        	setContentView(R.layout.activity_main);
-	        	
-	        	progress = ProgressDialog.show(this, "Ładowanie ustawień.",
-	        			  "Proszę czekać...", true);
-	        	
+            userFunctions = new UserFunctions();
+            if(userFunctions.isUserLoggedIn(this)){
+            	setContentView(R.layout.activity_main);
+     
+            	progress = ProgressDialog.show(this, "Ładowanie ustawień.",
+                      "Proszę czekać...", true);
+     
             	Intent logged = new Intent(getApplicationContext(), LoggedMainScreen.class);
             	logged.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             	startActivity(logged);
             	progress.dismiss();
             	finish();
-	        }else{
-	        	Intent login = new Intent(getApplicationContext(), LogInActivity.class);
-	        	login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	        	startActivity(login);
-	        	finish();
-	        }
+            }else{
+            	Intent login = new Intent(getApplicationContext(), LogInActivity.class);
+            	login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            	startActivity(login);
+            	finish();
+            }
+		} else {
+            setNewAlertDialog("Połączenie Internetowe", "Czy chcesz włączyć przesył danych?", this);
+            cd = new ConnectionDetector(getApplicationContext());
+            isInternetPresent = cd.isConnectingToInternet();
 		}
 	}
-	
+
 	private void setNewAlertDialog(String title, String msg, Context context)
 	{
 		AlertDialog alertDialog = new AlertDialog.Builder(context).create();
@@ -60,10 +98,10 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-	            	Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+					dialog.dismiss();
+					Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
 	            	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	            	startActivity(intent);
-	            	dialog.dismiss();
 				}
 			});
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Nie", new DialogInterface.OnClickListener() {
@@ -72,34 +110,9 @@ public class MainActivity extends Activity {
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
+				finish();
 			}
 		});
         alertDialog.show();
 	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		
-		ConnectionDetector cd = new ConnectionDetector(getApplicationContext()); 
-		Boolean isInternetPresent = cd.isConnectingToInternet();
-		
-		if(!isInternetPresent)
-		{
-			setNewAlertDialog("Połączenie Internetowe", "Czy chcesz włączyć przesył danych?", this);
-		}
-		else
-		{
-			Intent inte = new Intent(this, MainActivity.class);
-			inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(inte);
-			finish();
-		}
-	}
-
-	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
-		finish();
-	}	
 }

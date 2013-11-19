@@ -13,8 +13,6 @@ import android.widget.RemoteViews;
 public class Notification {
 	
 	private Intent newActivity;
-	private Context context;
-	
 	public Notification(Intent targetIntent)
 	{
 		this.newActivity = targetIntent;
@@ -22,7 +20,6 @@ public class Notification {
 	
 	public Notification(Context ctx)
 	{
-		this.context = ctx;
 	}
 	
 	public void displayOwnNotification(Context context, String title, String message, String json)
