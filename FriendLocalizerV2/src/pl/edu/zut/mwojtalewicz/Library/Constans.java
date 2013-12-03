@@ -2,24 +2,24 @@ package pl.edu.zut.mwojtalewicz.Library;
 
 public class Constans {
 	
-	public static String Tag = "Michazzz";
+	public static final String Tag = "Michazzz";
 	
-	public static String loginURL = "http://www.dyplomowa.mwojtalewicz.cba.pl/mobile_log_in.php";
-	public static String registerURL = "http://www.dyplomowa.mwojtalewicz.cba.pl/mobile_log_in.php";
+	public static final String loginURL = "http://www.dyplomowa.mwojtalewicz.cba.pl/mobile_log_in.php";
+	public static final String registerURL = "http://www.dyplomowa.mwojtalewicz.cba.pl/mobile_log_in.php";
 	
-	public static String login_tag = "login";
-	public static String register_tag = "register";
-	public static String searchFriends_tag = "searchfriends";
-	public static String inviteFriend_tag = "invite";
-	public static String refreshFriendsList = "refreshfriends";
-	public static String acceptInvite = "accept";
-	public static String declineInvite = "decline";
-	public static String userFriendList = "userfriendlist";
-	public static String removeUserFromFriends = "removefriend";
-	public static String userGpsPosition = "usergpsposition";
-	public static String friendsLocation = "locatefriends";
-	public static String inviteReplay = "acceptreplay";
-	public static String checkInvitations = "checkinvitations";
+	public static final String login_tag = "login";
+	public static final String register_tag = "register";
+	public static final String searchFriends_tag = "searchfriends";
+	public static final String inviteFriend_tag = "invite";
+	public static final String refreshFriendsList = "refreshfriends";
+	public static final String acceptInvite = "accept";
+	public static final String declineInvite = "decline";
+	public static final String userFriendList = "userfriendlist";
+	public static final String removeUserFromFriends = "removefriend";
+	public static final String userGpsPosition = "usergpsposition";
+	public static final String friendsLocation = "locatefriends";
+	public static final String inviteReplay = "acceptreplay";
+	public static final String checkInvitations = "checkinvitations";
 	
 	public static final int DATABASE_VERSION = 1;
 
@@ -35,9 +35,10 @@ public class Constans {
 	public static final String KEY_EMAIL = "email";
 	public static final String KEY_UID = "uid";
 	public static final String KEY_CREATED_AT = "created_at";
-	public static String KEY_SUCCESS = "success";
-	public static String KEY_ERROR = "error";
-	public static String KEY_ERROR_MSG = "error_msg";
+	public static final String KEY_SUCCESS = "success";
+	public static final String KEY_ERROR = "error";
+	public static final String KEY_ERROR_MSG = "error_msg";
+	public static final String KEY_LEVEL = "level";
 	
 	public static final String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
 			+ KEY_ID + " INTEGER PRIMARY KEY," 
@@ -45,12 +46,5 @@ public class Constans {
 			+ KEY_LASTNAME + " TEXT,"
 			+ KEY_EMAIL + " TEXT UNIQUE,"
 			+ KEY_UID + " TEXT,"
-			+ KEY_CREATED_AT + " TEXT" + ")";
-	
-	public static final String CREATE_FRIENDS_TABLE = "CREATE TABLE " + TABLE_FRIENDS + "("
-			+ KEY_ID + " INTEGER PRIMARY KEY," 
-			+ KEY_UID_INVITING + " INTEGER,"
-			+ KEY_UID_INVITED + " INTEGER,"
-			+ KEY_STATUS + " INTEGER,"
 			+ KEY_CREATED_AT + " TEXT" + ")";
 }

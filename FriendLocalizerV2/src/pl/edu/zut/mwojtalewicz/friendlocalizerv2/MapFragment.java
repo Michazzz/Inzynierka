@@ -90,29 +90,37 @@ public class MapFragment extends android.support.v4.app.Fragment {
 	    	mMapFragment = ((SupportMapFragment)getFragmentManager().findFragmentById(R.id.map));
 	    	googleMap = mMapFragment.getMap();
         	googleMap.setMyLocationEnabled(true);
-        	googleMap.getUiSettings().setZoomControlsEnabled(true);
+        	googleMap.getUiSettings().setZoomControlsEnabled(false);
         	googleMap.getUiSettings().setZoomGesturesEnabled(false);
         	googleMap.getUiSettings().setCompassEnabled(true);
         	googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         	
-        	LatLng lt = loadData();
-        	if(lt != null){
-        		CameraPosition cameraPosition = new CameraPosition.Builder().target(lt).zoom(14).build();
-        		googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        	try{
+        		LatLng lt = loadData();
+            	if(lt != null){
+            		CameraPosition cameraPosition = new CameraPosition.Builder().target(lt).zoom(14).build();
+            		googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            	}
+        	} catch (Exception e){
+        		e.printStackTrace();
         	}
 	    } else
 	    if (googleMap != null) {
 	    		mMapFragment = ((SupportMapFragment)getFragmentManager().findFragmentById(R.id.map));
 	    		googleMap = mMapFragment.getMap();
 	        	googleMap.setMyLocationEnabled(true);
-	        	googleMap.getUiSettings().setZoomControlsEnabled(true);
-	        	googleMap.getUiSettings().setZoomGesturesEnabled(true);
+	        	googleMap.getUiSettings().setZoomControlsEnabled(false);
+	        	googleMap.getUiSettings().setZoomGesturesEnabled(false);
 	        	googleMap.getUiSettings().setCompassEnabled(true);
 	        	googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-	        	LatLng lt = loadData();
-	        	if(lt != null){
-	        		CameraPosition cameraPosition = new CameraPosition.Builder().target(lt).zoom(14).build();
-	        		googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+	        	try{
+	        		LatLng lt = loadData();
+	            	if(lt != null){
+	            		CameraPosition cameraPosition = new CameraPosition.Builder().target(lt).zoom(14).build();
+	            		googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+	            	}
+	        	} catch (Exception e){
+	        		e.printStackTrace();
 	        	}
 	     }
 		
@@ -220,8 +228,8 @@ public class MapFragment extends android.support.v4.app.Fragment {
 
 	public LatLng loadData(){
 		mPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-		double lang = Double.parseDouble(mPref.getString("longitude", null));
-		double lat = Double.parseDouble(mPref.getString("latitude", null));
+		double lang = Double.parseDouble(mPref.getString("longitude", "0"));
+		double lat = Double.parseDouble(mPref.getString("latitude", "0"));
 	
 		return new LatLng(lat, lang); 
 	}

@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RegisterActivity extends Activity implements OnClickListener {
 	
@@ -81,12 +82,21 @@ public class RegisterActivity extends Activity implements OnClickListener {
 								DataBaseHandler db = new DataBaseHandler(getApplicationContext());
 								JSONObject json_user = json.getJSONObject("user");
 								
-								userFunction.logoutUser(getApplicationContext());
-								db.addUser(json_user.getString(Constans.KEY_NAME), json_user.getString(Constans.KEY_LASTNAME), json_user.getString(Constans.KEY_EMAIL), json.getString(Constans.KEY_UID), json_user.getString(Constans.KEY_CREATED_AT));						
-								Intent dashboard = new Intent(getApplicationContext(), MainActivity.class);
-								dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-								startActivity(dashboard);
-								finish();
+								if(Integer.parseInt(json_user.getString(Constans.KEY_LEVEL)) == 1 )
+								{
+									userFunction.logoutUser(getApplicationContext());
+									db.addUser(json_user.getString(Constans.KEY_NAME), json_user.getString(Constans.KEY_LASTNAME), json_user.getString(Constans.KEY_EMAIL), json.getString(Constans.KEY_UID), json_user.getString(Constans.KEY_CREATED_AT));						
+									Intent dashboard = new Intent(getApplicationContext(), MainActivity.class);
+									dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+									startActivity(dashboard);
+									finish();
+								} else {
+									Intent dashboard = new Intent(getApplicationContext(), LogInActivity.class);
+									dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+									startActivity(dashboard);
+									finish();
+									Toast.makeText(getApplicationContext(), "Link aktywacyjny wysłano na adres e-mail. Aktywuj konto, aby móc używać aplikacji!", Toast.LENGTH_LONG).show();
+								}
 							}else{
 								registerErrorMsg.setText("Wystąpił problem z rejestracją.");
 							}

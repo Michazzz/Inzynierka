@@ -76,8 +76,8 @@ public class UserFriendListFragment extends Fragment {
 			
 			if(json == null)
 			{
-				Notification not = new Notification(getActivity());
-				not.setNewAlertDialog("Błąd", "Wystąpił problem przy przesyłaniu danych. Spróbuj ponownie później.", getActivity());
+				//Notification not = new Notification(getActivity());
+				//not.setNewAlertDialog("Błąd", "Wystąpił problem przy przesyłaniu danych. Spróbuj ponownie później.", getActivity());
 			}
 			else
 			{

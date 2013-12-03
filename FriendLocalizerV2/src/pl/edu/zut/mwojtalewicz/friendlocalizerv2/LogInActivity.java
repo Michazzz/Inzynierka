@@ -76,14 +76,19 @@ public class LogInActivity extends Activity implements OnClickListener {
 									JSONObject json_user = json.getJSONObject("user");
 									
 									userFunction.logoutUser(getApplicationContext());
-									db.addUser(json_user.getString(Constans.KEY_NAME), json_user.getString(Constans.KEY_LASTNAME), json_user.getString(Constans.KEY_EMAIL), json.getString(Constans.KEY_UID), json_user.getString(Constans.KEY_CREATED_AT));						
-		
-									Intent dashboard = new Intent(getApplicationContext(), MainActivity.class);
-									
-									dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-									startActivity(dashboard);
-									
-									finish();
+									if(Integer.parseInt(json_user.getString(Constans.KEY_LEVEL)) == 1 )
+									{
+										db.addUser(json_user.getString(Constans.KEY_NAME), json_user.getString(Constans.KEY_LASTNAME), json_user.getString(Constans.KEY_EMAIL), json.getString(Constans.KEY_UID), json_user.getString(Constans.KEY_CREATED_AT));						
+			
+										Intent dashboard = new Intent(getApplicationContext(), MainActivity.class);
+										
+										dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+										startActivity(dashboard);
+										
+										finish();
+									} else {
+										loginErrorMsg.setText("Aktywuj konto aby móc korzystać z sytemu.");
+									}
 								}else{
 									loginErrorMsg.setText("Niepoprawny login i/lub hasło");
 								}
