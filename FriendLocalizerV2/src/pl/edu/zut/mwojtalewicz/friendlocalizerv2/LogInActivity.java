@@ -76,7 +76,7 @@ public class LogInActivity extends Activity implements OnClickListener {
 									JSONObject json_user = json.getJSONObject("user");
 									
 									userFunction.logoutUser(getApplicationContext());
-									if(Integer.parseInt(json_user.getString(Constans.KEY_LEVEL)) == 1 )
+									if(Integer.parseInt(json_user.getString(Constans.KEY_LEVEL)) > 0 )
 									{
 										db.addUser(json_user.getString(Constans.KEY_NAME), json_user.getString(Constans.KEY_LASTNAME), json_user.getString(Constans.KEY_EMAIL), json.getString(Constans.KEY_UID), json_user.getString(Constans.KEY_CREATED_AT));						
 			

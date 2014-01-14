@@ -91,7 +91,7 @@ public class MapFragment extends android.support.v4.app.Fragment {
 	    	googleMap = mMapFragment.getMap();
         	googleMap.setMyLocationEnabled(true);
         	googleMap.getUiSettings().setZoomControlsEnabled(false);
-        	googleMap.getUiSettings().setZoomGesturesEnabled(false);
+        	googleMap.getUiSettings().setZoomGesturesEnabled(true);
         	googleMap.getUiSettings().setCompassEnabled(true);
         	googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         	
@@ -110,7 +110,7 @@ public class MapFragment extends android.support.v4.app.Fragment {
 	    		googleMap = mMapFragment.getMap();
 	        	googleMap.setMyLocationEnabled(true);
 	        	googleMap.getUiSettings().setZoomControlsEnabled(false);
-	        	googleMap.getUiSettings().setZoomGesturesEnabled(false);
+	        	googleMap.getUiSettings().setZoomGesturesEnabled(true);
 	        	googleMap.getUiSettings().setCompassEnabled(true);
 	        	googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 	        	try{

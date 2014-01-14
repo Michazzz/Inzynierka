@@ -20,41 +20,44 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class LoggedMainScreen extends android.support.v4.app.FragmentActivity implements ActionBar.TabListener, LocationListener {
+public class LoggedMainScreen extends android.support.v4.app.FragmentActivity
+		implements ActionBar.TabListener, LocationListener {
 
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
 	
+	private boolean isGPSFixed = false;
+
 	private MyLocationIntrface mCallback;
-	
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 200;
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 3;
-    
-    protected LocationManager locationManager;
-    
-    boolean isGPSEnabled = false;
-    boolean isNetworkEnabled = false;
-	
+
+	private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 200;
+	private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 3;
+
+	public LocationManager locationManager;
+
+	boolean isGPSEnabled = false;
+	boolean isNetworkEnabled = false;
+
 	private String[] tabs = { "Profil", "Znajomi", "Mapa" };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_logged_main_screen);
-				
+
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		actionBar = getActionBar();
 		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
 		viewPager.setAdapter(mAdapter);
 		actionBar.setHomeButtonEnabled(false);
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);	
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		for (String tab_name : tabs) {
 			actionBar.addTab(actionBar.newTab().setText(tab_name)
 					.setTabListener(this));
 		}
-		
+
 		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
 			@Override
@@ -70,31 +73,56 @@ public class LoggedMainScreen extends android.support.v4.app.FragmentActivity im
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
-		
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        
-        if (!isGPSEnabled && !isNetworkEnabled) {
-        	showSettingsAlert();
-        }else{
-        	if(isNetworkEnabled && !isGPSEnabled){
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                Log.d(Constans.Tag, "Network");
-                if (locationManager != null) {
-                    locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                }
-        	}
-        	else {	
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                Log.d(Constans.Tag, "GPS");
-                if (locationManager != null) {
-                    locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                }
-        	}
-        }
+
+		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		isGPSEnabled = locationManager
+				.isProviderEnabled(LocationManager.GPS_PROVIDER);
+		isNetworkEnabled = locationManager
+				.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+		if (!isGPSEnabled && !isNetworkEnabled) {
+			showSettingsAlert();
+		} else {
+			if (isNetworkEnabled && !isGPSEnabled) {
+				locationManager.requestLocationUpdates(
+						LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+				Log.d(Constans.Tag, "Network");
+				if (locationManager != null) {
+					locationManager
+							.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+				}
+			} else {
+				if (isGPSEnabled && !isNetworkEnabled) {
+					locationManager.requestLocationUpdates(
+							LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES,
+							MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+					Log.d(Constans.Tag, "GPS");
+					if (locationManager != null) {
+						locationManager
+								.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+					}
+				} else {
+					locationManager.requestLocationUpdates(
+							LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+
+					if (locationManager != null) {
+						locationManager
+								.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+					}
+
+					locationManager.requestLocationUpdates(
+							LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES,
+							MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+					Log.d(Constans.Tag, "GPS");
+					if (locationManager != null) {
+						locationManager
+								.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+					}
+				}
+			}
+		}
 	}
-	
+
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 	}
@@ -113,113 +141,150 @@ public class LoggedMainScreen extends android.support.v4.app.FragmentActivity im
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	            
-	        case R.id.action_search_friends:
-				Intent search = new Intent(getApplicationContext(), SearchFriendsActivity.class);
-				search.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(search);
-	        	return true;
-	            
-	        case R.id.action_logout:
-				UserFunctions usr = new UserFunctions();
-				usr.logoutUser(getApplicationContext());
-				Intent mainintent = new Intent(getApplicationContext(), MainActivity.class);
-				mainintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(mainintent);
-	        	finish();
-				return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
-	}
-	
-	@Override
-	public void onAttachFragment(Fragment fragment) {
-		super.onAttachFragment(fragment);
-		try{
-			mCallback = (MyLocationIntrface) fragment;
-		} catch (Exception e){
-			e.getMessage();
+		switch (item.getItemId()) {
+
+		case R.id.action_search_friends:
+			Intent search = new Intent(getApplicationContext(),
+					SearchFriendsActivity.class);
+			search.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(search);
+			return true;
+
+		case R.id.action_logout:
+			UserFunctions usr = new UserFunctions();
+			usr.logoutUser(getApplicationContext());
+			Intent mainintent = new Intent(getApplicationContext(),
+					MainActivity.class);
+			mainintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(mainintent);
+			finish();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 
+	@Override
+	public void onAttachFragment(Fragment fragment) {
+		super.onAttachFragment(fragment);
+		try {
+			mCallback = (MyLocationIntrface) fragment;
+		} catch (Exception e) {
+			e.getMessage();
+		}
+	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		
+
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-		isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-		isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+		isGPSEnabled = locationManager
+				.isProviderEnabled(LocationManager.GPS_PROVIDER);
+		isNetworkEnabled = locationManager
+				.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 		if (!isGPSEnabled && !isNetworkEnabled) {
-		       	showSettingsAlert();
-		}else{
-			if(isNetworkEnabled && !isGPSEnabled){
-				locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-		        Log.d(Constans.Tag, "Network");
-		        if (locationManager != null) {
-		        	locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-		        }
-			}
-			else {	
-				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-			    Log.d(Constans.Tag, "GPS");
-			    if (locationManager != null) {
-			    	locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-			    }
+			showSettingsAlert();
+		} else {
+			if (isNetworkEnabled && !isGPSEnabled) {
+				locationManager.requestLocationUpdates(
+						LocationManager.NETWORK_PROVIDER, 0, 0, this);
+				Log.d(Constans.Tag, "Network");
+				if (locationManager != null) {
+					locationManager
+							.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+				}
+			} else {
+				if (isGPSEnabled && !isNetworkEnabled) {
+					locationManager.requestLocationUpdates(
+							LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES,
+							MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+					Log.d(Constans.Tag, "GPS");
+					if (locationManager != null) {
+						locationManager
+								.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+					}
+				} else {
+					locationManager.requestLocationUpdates(
+							LocationManager.NETWORK_PROVIDER, 0, 0, this);
+
+					if (locationManager != null) {
+						locationManager
+								.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+					}
+
+					locationManager.requestLocationUpdates(
+							LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES,
+							MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+					Log.d(Constans.Tag, "GPS");
+					if (locationManager != null) {
+						locationManager
+								.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+					}
+				}
 			}
 		}
 	}
-	
+
 	public interface MyLocationIntrface {
 		public void onGPSChange(Location location);
+
 		public void onNetworkChange(Location location);
 	}
 
-    @Override
+	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		locationManager.removeUpdates(this);
 	}
 
-	public void showSettingsAlert(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("Ustawienia GPS");
-        alertDialog.setMessage("GPS wyłączony, przejść do ustawień i włączyć?");
-        alertDialog.setPositiveButton("Ustawienia", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
-                dialog.dismiss();
-            }
-        });
-  
-        alertDialog.setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-            	dialog.dismiss();
-            	finish();
-            }
-        });
-        alertDialog.show();
-    }
-    
-    @Override
-    public void onLocationChanged(Location location) {
-    	Log.d(Constans.Tag, location.toString());
-    	if(location != null){
-	    	if(isGPSEnabled){
-	    		mCallback.onGPSChange(location);
-	    	} else {
-	    		mCallback.onNetworkChange(location);
-	    	}
-    	}
-    }
+	public void showSettingsAlert() {
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+		alertDialog.setTitle("Ustawienia GPS");
+		alertDialog.setMessage("GPS wyłączony, przejść do ustawień i włączyć?");
+		alertDialog.setPositiveButton("Ustawienia",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(
+								Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+						startActivity(intent);
+						dialog.dismiss();
+					}
+				});
+
+		alertDialog.setNegativeButton("Anuluj",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						finish();
+					}
+				});
+		alertDialog.show();
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		Log.d(Constans.Tag, location.toString());
+		if (location != null) {
+			if(isGPSEnabled && isNetworkEnabled){
+				if(location.getProvider().equals("gps")){
+					mCallback.onGPSChange(location);
+					isGPSFixed = true;
+				} else if(!isGPSFixed && location.getProvider().equals("network")){
+					mCallback.onNetworkChange(location);
+				}
+			}
+			else
+			if(!isGPSEnabled && isNetworkEnabled){
+				mCallback.onNetworkChange(location);
+			}
+		}
+	}
 
 	@Override
 	public void onProviderDisabled(String arg0) {
@@ -229,7 +294,7 @@ public class LoggedMainScreen extends android.support.v4.app.FragmentActivity im
 	@Override
 	public void onProviderEnabled(String provider) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
